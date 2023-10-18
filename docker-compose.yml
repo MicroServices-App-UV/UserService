@@ -4,12 +4,12 @@ services:
 
   front_end:
     build:
-      context: ./forme-app
+      context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - .:/forme-app
+      - .:/frontend
     environment:
       - NODE_ENV=development
 

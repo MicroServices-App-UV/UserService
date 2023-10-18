@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-WORKDIR /forme-app/forme-app
+WORKDIR /UserService/frontend
 
 COPY package*.json ./
 
