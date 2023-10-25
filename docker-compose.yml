@@ -27,7 +27,7 @@ services:
 
   postgres:
     container_name: "postgres_container"
-    image: postgres
+    image: postgres:15
     restart: always
     environment:
       - POSTGRES_USER=pgadmin

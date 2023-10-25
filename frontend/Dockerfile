@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-WORKDIR /UserService/frontend
+WORKDIR /frontend
 
 COPY package*.json ./
 
