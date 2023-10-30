@@ -21,15 +21,15 @@ const getUsuario = async (req, res, next) => {
 
 const updateUsuario = async (req, res, next) => {
     const { id_usuario } = req.params;
-    const { first_name, last_name, username, image, email, password } = req.body;
+    const { first_name, last_name, username, image, email } = req.body;
 
     try {
-        const sql = ` UPDATE Persona SET first_name = $1, last_name = $2, username = $3, image = $4, email = $5, password = $6
+        const sql = ` UPDATE Persona SET first_name = $1, last_name = $2, username = $3, image = $4, email = $5
             WHERE id_persona = (
-                SELECT id_persona FROM Usuario_app WHERE id_usuario = $7
+                SELECT id_persona FROM Usuario_app WHERE id_usuario = $6
             );
         `;
-        await pool.query(sql, [first_name, last_name, username, image, email, password, id_usuario]);
+        await pool.query(sql, [first_name, last_name, username, image, email, id_usuario]);
 
         res.json({ message: "Datos de usuario actualizados exitosamente" });
     } catch (error) {
@@ -37,11 +37,24 @@ const updateUsuario = async (req, res, next) => {
     }
 };
 
+const addUser = async (req, res , next) => {
+    const { id_usuario, first_name, last_name, username, image, email } = req.body
+    try {
+        let sql = `INSERT INTO Persona VALUES (${id_usuario}, '${first_name}', '${last_name}', '${username}', '${image}', '${email}'); INSERT INTO Usuario(id_usuario) VALUES (${id_usuario});`
+        const result = await pool.query(sql)
+        console.log(result)
+
+        res.json({ message: 'success' })
+    } catch (error) {
+        next(error)
+    }
+}
 
 
 
 module.exports = {
     getUsuario,
-    updateUsuario
+    updateUsuario,
+    addUser
 }
 
