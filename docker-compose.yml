@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-
   front_end:
     build:
       context: ./frontend
@@ -10,6 +9,8 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
+    networks:
+      - auth
 
   api-rest:
     build:
@@ -22,6 +23,8 @@ services:
       - DATABASE=postgres
     ports:
       - "4000:4000"
+    networks:
+      - auth
 
   postgres:
     container_name: "postgres_container"
@@ -36,6 +39,8 @@ services:
       - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     ports:
       - "5432:5432"
+    networks:
+      - auth
 
   pgadmin:
     image: dpage/pgadmin4
@@ -46,6 +51,13 @@ services:
       - "80:80"
     depends_on:
       - postgres
+    networks:
+      - auth
 
 volumes:
   postgres-data:
+
+networks:
+  auth:
+    external: true
+
