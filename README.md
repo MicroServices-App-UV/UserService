@@ -8,7 +8,7 @@ Microservice for user management
 docker network create auth
 ```
 
-# Run application using docker:
+# Run application using docker
 
 ```
 docker-compose up
