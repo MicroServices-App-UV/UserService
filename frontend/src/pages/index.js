@@ -3,14 +3,13 @@ import { Avatar, Button, Container, TextField, Typography, Paper, Box, Grid, Div
 import Lock from '@mui/icons-material/Lock';
 import { getUsuario, updateUsuario } from '../functions/fetchFunctions'
 
-
 const App = () => {
   const [userData, setUserData] = useState({
     id_usuario: '',
     first_name: '',
     last_name: '',
     username: '',
-    image: '', // Puedes reemplazar esto con la URL de la imagen del usuario
+    image: '',
     email: '',
   });
 
@@ -18,7 +17,7 @@ const App = () => {
 
   const loadUserData = async () => {
     try {
-      const data = await getUsuario(1); // Cambia el ID del usuario según tus necesidades
+      const data = await getUsuario();
       setUserData(data);
     } catch (error) {
       console.error(error);
@@ -43,7 +42,7 @@ const App = () => {
   }, []);
 
   return (
-    <Container maxWidth="md" sx={{width:'50%'}}>
+    <Container maxWidth="md" sx={{ width: '50%' }}>
       <Box
         display="flex"
         flexDirection="column"
@@ -51,8 +50,8 @@ const App = () => {
         justifyContent="center"
         minHeight="100vh"
       >
-        <Paper elevation={3} style={{ paddingLeft: '50px',paddingRight:'50px',paddingTop:'20px',paddingBottom:'20px', borderRadius: '20px' }}>
-          <Typography variant="h5" mb={3} style={{ fontWeight:'bold', marginTop: '30px', alignItems:'center',display:'flex',justifyContent:'center' }}>
+        <Paper elevation={3} style={{ paddingLeft: '50px', paddingRight: '50px', paddingTop: '20px', paddingBottom: '20px', borderRadius: '20px' }}>
+          <Typography variant="h5" mb={3} style={{ fontWeight: 'bold', marginTop: '30px', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
             Editar Perfil
           </Typography>
           <Divider />
@@ -67,29 +66,29 @@ const App = () => {
 
           <Grid container spacing={3} mt={1}>
             <Grid item xs={6}>
-              <Typography variant="subtitle2">Nombre(s)</Typography>
+              <Typography variant="subtitle2">Name(s)</Typography>
               <TextField
                 variant="outlined"
                 size="small"
                 fullWidth
                 disabled={!isEditing}
                 value={userData.first_name}
-                onChange={(e) => setUserData({ ...userData, first_name: e.target.value })}
+                onChange={(e) => setUserData((prevUserData) => ({ ...prevUserData, first_name: e.target.value }))}
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="subtitle2">Apellidos</Typography>
+              <Typography variant="subtitle2">Lastname</Typography>
               <TextField
                 variant="outlined"
                 size="small"
                 fullWidth
                 disabled={!isEditing}
                 value={userData.last_name}
-                onChange={(e) => setUserData({ ...userData, last_name: e.target.value })}
+                onChange={(e) => setUserData((prevUserData) => ({ ...prevUserData, last_name: e.target.value }))}
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="subtitle2">Correo electrónico</Typography>
+              <Typography variant="subtitle2">Email</Typography>
               <TextField
                 variant="outlined"
                 size="small"
@@ -104,14 +103,14 @@ const App = () => {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="subtitle2">Nombre de usuario</Typography>
+              <Typography variant="subtitle2">Username</Typography>
               <TextField
                 variant="outlined"
                 size="small"
                 fullWidth
                 disabled={!isEditing}
                 value={userData.username}
-                onChange={(e) => setUserData({ ...userData, username: e.target.value })}
+                onChange={(e) => setUserData((prevUserData) => ({ ...prevUserData, username: e.target.value }))}
               />
             </Grid>
           </Grid>

@@ -6,9 +6,18 @@ const morgan = require('morgan');
 const routes = require('./routes/routes.js');
 const app = express();
 const cors = require('cors');
+const session =  require('express-session')
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
+
+app.use(
+  session({ secret: 'keyboard cat', resave: false, saveUninitialized: true })
+);
 
 app.get("/", (req, res) => {res.send("Server is running on")})
-app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(routes);

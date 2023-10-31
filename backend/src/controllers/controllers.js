@@ -1,10 +1,10 @@
 const pool = require('../connection_db')
 
-const getUsuario = async (req, res, next) => {
-    const { id_usuario } = req.params; 
-
+const getUsuario = async (req,res,next) => {
+    const userId = req.session.idUser 
+    console.log("pq",userId)
     try {
-        const sql = `SELECT * FROM Persona NATURAL JOIN Usuario_app AS u WHERE u.id_usuario = '${id_usuario}'`;
+        const sql = `SELECT * FROM Persona NATURAL JOIN Usuario_app AS u WHERE u.id_usuario = '${userId}'`;
         const result = await pool.query(sql);
 
         if (result.rows.length === 0) {
@@ -37,10 +37,11 @@ const updateUsuario = async (req, res, next) => {
     }
 };
 
-const addUser = async (req, res , next) => {
-    const { id_usuario, first_name, last_name, username, image, email } = req.body
+const addUser = async (req, res , userData, next) => {
+    const { _id, firstName, lastName, username, email } = userData;
+
     try {
-        let sql = `INSERT INTO Persona VALUES (${id_usuario}, '${first_name}', '${last_name}', '${username}', '${image}', '${email}'); INSERT INTO Usuario(id_usuario) VALUES (${id_usuario});`
+        let sql = `INSERT INTO Persona VALUES ('${_id}', '${firstName}', '${lastName}', '${username}','imagen', '${email}'); INSERT INTO Usuario_app(id_usuario,id_persona) VALUES ('${_id}','${_id}');`
         const result = await pool.query(sql)
         console.log(result)
 

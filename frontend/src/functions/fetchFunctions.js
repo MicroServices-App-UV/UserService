@@ -1,6 +1,9 @@
-async function getUsuario(id_usuario) {
+async function getUsuario() {
     try {
-        const response = await fetch(`http://localhost:4000/usuario/${id_usuario}`);
+        const response = await fetch(`http://localhost:4000/usuario`, {
+            method: 'GET',
+            credentials: 'include',
+        });
         const data = await response.json();
 
         console.log("hola")
@@ -15,6 +18,7 @@ async function getUsuario(id_usuario) {
         throw error;
     }
 }
+
 
 async function updateUsuario(id_usuario, userData) {
     try {
