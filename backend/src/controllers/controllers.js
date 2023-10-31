@@ -1,4 +1,5 @@
 const pool = require('../connection_db')
+const { request } = require('graphql-request');
 
 const getUsuario = async (req,res,next) => {
     const userId = req.session.idUser 
@@ -30,6 +31,33 @@ const updateUsuario = async (req, res, next) => {
             );
         `;
         await pool.query(sql, [first_name, last_name, username, image, email, id_usuario]);
+        
+        const endpoint = 'http://localhost:3000/graphql';
+        const query = `
+            mutation UpdateUser($input: UserInput) {
+                updateUser(input: $input) {
+                    _id
+                    firstName
+                    lastName
+                    username
+                    email
+                }
+            }
+        `;
+        const userData = {
+            _id: id_usuario,
+            first_name,
+            last_name,
+            username,
+            email
+        };
+
+        const response = await request(endpoint, query, {
+            input: userData,
+        });
+
+        console.log('Datos actualizados:', response.updateUser);
+
 
         res.json({ message: "Datos de usuario actualizados exitosamente" });
     } catch (error) {
