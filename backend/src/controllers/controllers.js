@@ -37,7 +37,7 @@ const updateUsuario = async (req, res, next) => {
     }
 };
 
-const addUser = async (req, res , userData, next) => {
+const addUser = async (req, res , userData) => {
     const { _id, firstName, lastName, username, email } = userData;
 
     try {
@@ -45,9 +45,8 @@ const addUser = async (req, res , userData, next) => {
         const result = await pool.query(sql)
         console.log(result)
 
-        res.json({ message: 'success' })
     } catch (error) {
-        next(error)
+        console.log("error")
     }
 }
 

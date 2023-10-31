@@ -33,6 +33,7 @@ const userInfo = async (req, res) => {
 //      username: 'danielcisneros',
 //      email: 'danielcis@hotmail.com'
 //    }
+//    await addUser(req, res, test);
 //    console.log("aa",test._id)
 //
 //    req.session.idUser = test._id
