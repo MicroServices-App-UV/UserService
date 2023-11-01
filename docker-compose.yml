@@ -21,6 +21,7 @@ services:
       - postgres
     environment:
       - DATABASE=postgres
+      - NODE_ENV=production
     ports:
       - "4000:4000"
     networks:

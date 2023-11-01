@@ -2,7 +2,7 @@ const pool = require('../connection_db')
 const { request } = require('graphql-request');
 
 const getUsuario = async (req,res,next) => {
-    const userId = req.session.idUser 
+    const userId = req.session.idUser  
     console.log("pq",userId)
     try {
         const sql = `SELECT * FROM Persona NATURAL JOIN Usuario_app AS u WHERE u.id_usuario = '${userId}'`;
