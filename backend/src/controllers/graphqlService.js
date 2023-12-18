@@ -1,5 +1,6 @@
 const { request } = require("graphql-request");
 const { addUser, getUsuario } = require("./controllers");
+const {setCachedUserId} = require("../cache")
 
 const userInfo = async (req, res) => {
     try {
@@ -23,7 +24,8 @@ const userInfo = async (req, res) => {
 
       const data = await request(endpoint, query, variables);
     
-
+      req.session.idUser = data.users._id
+      console.log(req.session.idUser)
       await addUser(req, res, data.users);
 
 //    const test = {
@@ -37,12 +39,15 @@ const userInfo = async (req, res) => {
 //    console.log("aa",test._id)
 //
 //    req.session.idUser = test._id
-      req.session.idUser = data.users._id
+      
 //    
 //    const idd = test._id
       const idd = data.users._id
+      setCachedUserId(idd)
       console.log("Usuario obtenido: ", data.users);
-      res.json({idd})
+      res.json(data.users._id)
+
+      
   } catch (error) {
     console.error(error);
   }

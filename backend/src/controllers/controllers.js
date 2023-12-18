@@ -1,8 +1,10 @@
 const pool = require('../connection_db')
 const { request } = require('graphql-request');
+const {getCachedUserId} = require("../cache")
 
 const getUsuario = async (req,res,next) => {
-    const userId = req.session.idUser  
+    //const userId = req.session.idUser
+    const userId = getCachedUserId()
     console.log("pq",userId)
     try {
         const sql = `SELECT * FROM Persona NATURAL JOIN Usuario_app AS u WHERE u.id_usuario = '${userId}'`;
@@ -23,6 +25,8 @@ const getUsuario = async (req,res,next) => {
 const updateUsuario = async (req, res, next) => {
     const { id_usuario } = req.params;
     const { first_name, last_name, username, image, email } = req.body;
+
+    console.log(id_usuario,first_name,last_name,username,email)
 
     try {
         const sql = ` UPDATE Persona SET first_name = $1, last_name = $2, username = $3, image = $4, email = $5
@@ -46,10 +50,10 @@ const updateUsuario = async (req, res, next) => {
         `;
         const userData = {
             _id: id_usuario,
-            first_name,
-            last_name,
-            username,
-            email
+            firstName: first_name,
+            lastName: last_name,
+            username: username,
+            email: email
         };
 
         const response = await request(endpoint, query, {

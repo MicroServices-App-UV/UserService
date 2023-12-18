@@ -9,9 +9,10 @@ const cors = require('cors');
 const session =  require('express-session')
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000/graphql', 'http://localhost:3002'],
   credentials: true,
 }));
+
 
 app.use(
   session({ secret: 'keyboard cat', resave: false, saveUninitialized: true })
