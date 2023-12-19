@@ -1,6 +1,6 @@
 async function getUsuario() {
     try {
-        const response = await fetch(`http://localhost:4000/usuario`, {
+        const response = await fetch(`http://20.237.18.198/usuario`, {
             method: 'GET',
             credentials: 'include',
         });
@@ -22,7 +22,7 @@ async function getUsuario() {
 
 async function updateUsuario(id_usuario, userData) {
     try {
-        const response = await fetch(`http://localhost:4000/usuario/${id_usuario}`, {
+        const response = await fetch(`http://20.237.18.198/usuario/${id_usuario}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

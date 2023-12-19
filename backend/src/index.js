@@ -9,7 +9,7 @@ const cors = require('cors');
 const session =  require('express-session')
 
 app.use(cors({
-  origin: ['http://localhost:3000/graphql', 'http://localhost:3002'],
+  origin: ['http://localhost:3000/graphql', 'http://localhost:3002','http://20.83.137.142'],
   credentials: true,
 }));
 

@@ -24,24 +24,9 @@ const userInfo = async (req, res) => {
 
       const data = await request(endpoint, query, variables);
     
-      req.session.idUser = data.users._id
-      console.log(req.session.idUser)
       await addUser(req, res, data.users);
 
-//    const test = {
-//      _id: '653891b999ad54d62eb40182',
-//      firstName: 'Daniel',
-//      lastName: 'Cisneros',
-//      username: 'danielcisneros',
-//      email: 'danielcis@hotmail.com'
-//    }
-//    await addUser(req, res, test);
-//    console.log("aa",test._id)
-//
-//    req.session.idUser = test._id
       
-//    
-//    const idd = test._id
       const idd = data.users._id
       setCachedUserId(idd)
       console.log("Usuario obtenido: ", data.users);

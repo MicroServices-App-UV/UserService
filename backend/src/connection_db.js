@@ -11,7 +11,7 @@ const config = {
   },
   production: {
     database: {
-      host: 'postgres',
+      host: 'postgres-service',
       port: 5432,
       user: 'pgadmin',
       password: 'pg123',
