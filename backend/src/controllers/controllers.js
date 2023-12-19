@@ -3,7 +3,7 @@ const { request } = require('graphql-request');
 const {getCachedUserId} = require("../cache")
 
 const getUsuario = async (req,res,next) => {
-    const userId = '1'
+    const userId = getCachedUserId()
     console.log("pq",userId)
     try {
         const sql = `SELECT * FROM Persona NATURAL JOIN Usuario_app AS u WHERE u.id_usuario = '${userId}'`;
